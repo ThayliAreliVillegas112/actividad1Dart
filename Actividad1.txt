@@ -1,0 +1,82 @@
+/*
+ *
+ * Person -> name, lastname, birthday, status
+ * user -> nickname, password extends Person
+ * Admin -> email, password extends Person
+ *
+ * insert, findAll, changeStatus, Update
+ * User -> insert, findAll, update (usuarios)
+ * Admin -> findAll, changeStatus (Usuarios)
+ *
+ */
+
+void main(){
+
+var user = User('Elena', 'Gomez', '2002-03-10',true, 'ele123', '124578');
+  user.insert();
+  
+  var usersList = User.findAll();
+  print("usuarios:");
+  for (var user in usersList) {
+    print('Nombre: ${user.name}, Apellido: ${user.lastname}, Nickname: ${user.name}');
+  }
+  user.update();
+
+  var adminsList = Admin.findAll();
+  print("\nadministradores:");
+  for (var admin in adminsList) {
+    print('Nombre: ${admin.name}, Apellido: ${admin.lastname}, Email: ${admin.email}');
+    admin.changeStatus();
+  }
+}
+
+class Person{
+ 
+  String name ='';
+  String lastname ='';
+  String birthday='';
+  bool status = true;
+  Person(this.name, this.lastname, this.birthday, this.status);
+ 
+}
+
+class User extends Person{
+ 
+  String nickname='';
+  String password='';
+  User(String name, String lastname, String birthday, bool status,  this.nickname,  this.password): super(name, lastname, birthday, status);
+
+  void insert() {
+    print("Usuario $nickname insertado");
+  }
+  
+  static List<User> findAll() {
+    return [
+      User('Thayli', 'Villegas', '2002-26-02',true, 'thay12', '123456'),
+      User('Diana', 'garcia', '2013-08-11',true, 'dianita', '123456')
+    ];
+  }
+  
+  void update() {
+    print('Usuario $nickname se ha actualizado');
+  }
+}
+
+
+class Admin extends Person{
+  String email='';
+  String password='';
+  Admin(String name, String lastname, String birthday, bool status,  this.email, this.password): super(name, lastname, birthday, status);
+
+  static List<Admin> findAll() {
+    return [
+      Admin('adminThat', 'villegas', '2002-26-02',true, 'thay@gamil.com', '123456'),
+      Admin('Admin2Thay', 'garcia', '2013-08-11',true, 'diana@gmail.com', '123456')
+    ];
+  }
+
+  void changeStatus() {
+    
+    print("El status de $name a sido cambiado correctamente");
+  }
+}
